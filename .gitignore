@@ -1,15 +1,1 @@
-.vscode/
 
-artifactory/local-data/*
-!artifactory/local-data/etc/
-artifactory/local-data/etc/*
-!artifactory/local-data/etc/system.yaml
-
-elasticsearch/local-data/
-github-changelog-generator/generated/
-loki-grafana-tempo-prometheus/tempo-data/
-mariadb/local-data/
-mongo/local-data/
-mysql/local-data/
-postgres/local-data/
-tomcat/webapps/ROOT/
