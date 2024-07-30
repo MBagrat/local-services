@@ -11,12 +11,17 @@ services:
       service: pgadmin
       file: ./pgadmin/compose.yml
 
-#  portainer:
-#    extends:
-#      service: portainer
-#      file: ./portainer/compose.yml
+  portainer:
+    extends:
+      service: portainer
+      file: ./portainer/compose.yml
 
 volumes:
+  portainer_data:
   postgres_data:
   pgadmin_data:
   pgadmin_cert_data:
+
+secrets:
+  passwordfile:
+    file: ./portainer/config/portainerpass.txt
