@@ -1,10 +1,10 @@
-version: '3'
+name: rabbitmq
 services:
-    rabbitmq:
-        container_name: rabbitmq
-        image: rabbitmq:management-alpine
-        extra_hosts: [ 'host.docker.internal:host-gateway' ]
-        restart: always
-        ports:
-            - 5672:5672
-            - 15672:15672
+  rabbitmq:
+    container_name: rabbitmq
+    image: rabbitmq:management-alpine
+    extra_hosts: [ 'host.docker.internal:host-gateway' ]
+    restart: always
+    ports:
+      - 5672:5672
+      - 15672:15672
