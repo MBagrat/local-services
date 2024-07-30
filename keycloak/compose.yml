@@ -35,9 +35,9 @@ services:
       KC_REALM_NAME: ${KC_REALM_NAME}
       KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN}
       KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
-      GF_URL: ${GF_HOSTNAME}:${GF_SERVER_HTTP_PORT}
-      GF_ADMIN_USERNAME: ${GF_ADMIN_USERNAME}
-      GF_ADMIN_PASSWORD: ${GF_ADMIN_PASSWORD}
+      GF_URL: ${GRAFANA_HOSTNAME}:${GRAFANA_SERVER_HTTP_PORT}
+      GF_ADMIN_USERNAME: ${GRAFANA_ADMIN_USERNAME}
+      GF_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD}
     ports:
       - ${KC_PORT}:8080
     volumes:
@@ -62,15 +62,15 @@ services:
     logging: *logging
 
   grafana:
-    image: grafana/grafana-oss:${GF_VERSION}
+    image: grafana/grafana-oss:${GRAFANA_VERSION}
     restart: unless-stopped
     ports:
-      - ${GF_SERVER_HTTP_PORT}:${GF_SERVER_HTTP_PORT}
+      - ${GRAFANA_SERVER_HTTP_PORT}:${GRAFANA_SERVER_HTTP_PORT}
     healthcheck:
-      test: ["CMD", "wget", "--spider", "http://localhost:${GF_SERVER_HTTP_PORT}/api/health"]
+      test: ["CMD", "wget", "--spider", "http://localhost:${GRAFANA_SERVER_HTTP_PORT}/api/health"]
     environment:
-      GF_SERVER_HTTP_PORT: ${GF_SERVER_HTTP_PORT}
-      GF_LOG_LEVEL: ${GF_LOG_LEVEL}
+      GF_SERVER_HTTP_PORT: ${GRAFANA_SERVER_HTTP_PORT}
+      GF_LOG_LEVEL: ${GRAFANA_LOG_LEVEL}
       GF_AUTH_BASIC_ENABLED: true
       GF_AUTH_DISABLE_LOGIN_FORM: true
       GF_AUTH_GENERIC_OAUTH_TLS_SKIP_VERIFY_INSECURE: true

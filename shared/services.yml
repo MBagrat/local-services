@@ -1,0 +1,22 @@
+name: services
+services:
+#  DB's
+  postgres:
+    extends:
+      service: postgres
+      file: ./postgres/compose.yml
+
+  pgadmin:
+    extends:
+      service: pgadmin
+      file: ./pgadmin/compose.yml
+
+#  portainer:
+#    extends:
+#      service: portainer
+#      file: ./portainer/compose.yml
+
+volumes:
+  postgres_data:
+  pgadmin_data:
+  pgadmin_cert_data:
