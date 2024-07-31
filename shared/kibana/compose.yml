@@ -1,0 +1,11 @@
+name: kibana
+services:
+  kibana:
+    container_name: kibana
+    image: docker.elastic.co/kibana/kibana:7.10.2
+    extra_hosts: [ 'host.docker.internal:host-gateway' ]
+    restart: always
+    depends_on:
+      - elasticsearch
+    ports:
+      - 5601:5601

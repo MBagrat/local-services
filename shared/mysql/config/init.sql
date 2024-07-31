@@ -1,2 +1,2 @@
-CREATE DATABASE bord_db;
-USE bord_db;
+CREATE DATABASE IF NOT EXISTS bord;
+USE bord;

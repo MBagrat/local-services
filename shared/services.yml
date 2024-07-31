@@ -11,11 +11,27 @@ services:
       service: pgadmin
       file: ./pgadmin/compose.yml
 
+  mysql:
+    extends:
+      service: mysql
+      file: ./mysql/compose.yml
+
+  mariadb:
+    extends:
+      service: mariadb
+      file: ./mariadb/compose.yml
+
+  phpmyadmin:
+    extends:
+      service: phpmyadmin
+      file: ./phpmyadmin/compose.yml
+
+  # INFO: Remember to integrate with keycloak
   rabbitmq:
     extends:
       service: rabbitmq
       file: ./rabbitmq/compose.yml
-
+  # INFO: Remember to integrate with keycloak
   portainer:
     extends:
       service: portainer
@@ -26,12 +42,10 @@ volumes:
   postgres_data:
   pgadmin_data:
   pgadmin_cert_data:
+  mysql_data:
+  mariadb_data:
   rabbitmq_data:
-
-networks:
-  rabbitmq:
-    driver: bridge
 
 secrets:
   portainer-password:
-    file: ./portainer/config/portainerpass.txt
+    file: ./portainer/config/password.txt

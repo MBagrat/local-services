@@ -1,8 +1,9 @@
+name: mysql
 services:
     mysql:
         image: mysql:${MYSQL_VERSION}
         container_name: mysql
-        # extra_hosts: ["host.docker.internal:host-gateway"]
+        extra_hosts: ["host.docker.internal:host-gateway"]
         restart: unless-stopped
         environment:
             MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
@@ -11,10 +12,6 @@ services:
             MYSQL_PASSWORD: ${MYSQL_PASSWORD}
         volumes:
             - ./config/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
-            - mysql_db_data_container:/var/lib/mysql
+            - mysql_data:/var/lib/mysql
         ports:
             - 3306:3306
-
-volumes:
-    mysql_db_data_container:
-        driver: local
