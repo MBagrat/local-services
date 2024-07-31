@@ -11,6 +11,11 @@ services:
       service: pgadmin
       file: ./pgadmin/compose.yml
 
+  rabbitmq:
+    extends:
+      service: rabbitmq
+      file: ./rabbitmq/compose.yml
+
   portainer:
     extends:
       service: portainer
@@ -21,7 +26,12 @@ volumes:
   postgres_data:
   pgadmin_data:
   pgadmin_cert_data:
+  rabbitmq_data:
+
+networks:
+  rabbitmq:
+    driver: bridge
 
 secrets:
-  passwordfile:
+  portainer-password:
     file: ./portainer/config/portainerpass.txt

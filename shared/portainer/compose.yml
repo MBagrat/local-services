@@ -4,8 +4,7 @@ services:
     image: portainer/portainer-ce:${PORTAINER_VERSION}
     container_name: portainer
     command:
-      - --admin-password-file=/run/secrets/passwordfile
-      - --http-enabled
+      - --admin-password-file=/run/secrets/portainer-password
     ports:
       - "8000:8000"
       - "9443:9443"
@@ -13,6 +12,6 @@ services:
       - portainer_data:/data
       - /var/run/docker.sock:/var/run/docker.sock
     secrets:
-      - passwordfile
+      - portainer-password
     restart: unless-stopped
     profiles: ["only-portainer", "all"]
