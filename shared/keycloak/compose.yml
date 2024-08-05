@@ -1,0 +1,25 @@
+name: keycloak
+services:
+  keycloak:
+    image: quay.io/keycloak/keycloak:${KEYCLOAK_VERSION}
+    command: [ "start-dev", "--import-realm" ]
+    restart: unless-stopped
+    environment:
+      KC_DB: postgres
+      KC_DB_USERNAME: keycloak
+      KC_DB_PASSWORD: pa$$w0rd
+      KC_DB_URL: "jdbc:postgresql://postgres:5432/keycloak"
+      KC_METRICS_ENABLED: true
+      KC_LOG_LEVEL: ${KEYCLOAK_LOG_LEVEL}
+      KC_REALM_NAME: ${KC_REALM_NAME}
+      KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN}
+      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
+      GRAFANA_URL: ${GRAFANA_HOSTNAME}:${GRAFANA_SERVER_HTTP_PORT}
+      GRAFANA_ADMIN_USERNAME: ${GRAFANA_ADMIN_USERNAME}
+      GRAFANA_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD}
+    ports:
+      - ${KEYCLOAK_PORT}:8080
+    volumes:
+      - ./config/realm.json:/opt/keycloak/data/import/realm.json:ro
+    depends_on:
+      - postgres

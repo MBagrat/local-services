@@ -20,5 +20,5 @@ services:
     ports:
       - ${PROMETHEUS_PORT}:9090
     volumes:
-      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./config/prometheus.yml:/etc/prometheus/prometheus.yml:ro
     logging: *logging
