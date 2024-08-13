@@ -1,7 +1,7 @@
 name: keycloak
 services:
   keycloak:
-    image: quay.io/keycloak/keycloak:${KEYCLOAK_VERSION}
+    image: quay.io/keycloak/keycloak:${KC_VERSION}
     command: [ "start-dev", "--import-realm" ]
     restart: unless-stopped
     environment:
@@ -10,16 +10,17 @@ services:
       KC_DB_PASSWORD: pa$$w0rd
       KC_DB_URL: "jdbc:postgresql://postgres:5432/keycloak"
       KC_METRICS_ENABLED: true
-      KC_LOG_LEVEL: ${KEYCLOAK_LOG_LEVEL}
+      KC_FEATURES: ${KC_FEATURES}
+      KC_LOG_LEVEL: ${KC_LOG_LEVEL}
       KC_REALM_NAME: ${KC_REALM_NAME}
-      KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN}
-      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
-      GRAFANA_URL: ${GRAFANA_HOSTNAME}:${GRAFANA_SERVER_HTTP_PORT}
-      GRAFANA_ADMIN_USERNAME: ${GRAFANA_ADMIN_USERNAME}
-      GRAFANA_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD}
+      KC_REALM_DISPLAY_NAME: ${KC_REALM_DISPLAY_NAME}
+      KEYCLOAK_ADMIN: ${KC_ADMIN_USERNAME}
+      KEYCLOAK_ADMIN_PASSWORD: ${KC_ADMIN_PASSWORD}
+      GF_URL: ${GF_HOSTNAME}:${GF_SERVER_HTTP_PORT}
+      GF_ADMIN_USERNAME: ${GF_ADMIN_USERNAME}
+      GF_ADMIN_PASSWORD: ${GF_ADMIN_PASSWORD}
     ports:
-      - ${KEYCLOAK_PORT}:8080
+      - ${KC_PORT}:8080
+      - ${KC_MANAGEMENT_PORT}:9000
     volumes:
       - ./config/realm.json:/opt/keycloak/data/import/realm.json:ro
-    depends_on:
-      - postgres
