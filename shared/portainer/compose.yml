@@ -1,17 +1,19 @@
 name: portainer
 services:
   portainer:
-    image: portainer/portainer-ce:${PORTAINER_VERSION}
     container_name: portainer
-    command:
-      - --admin-password-file=/run/secrets/portainer-password
+    image: portainer/portainer-ce:${PORTAINER_VERSION}
+    restart: unless-stopped
     ports:
-      - "8000:8000"
-      - "9443:9443"
+      - '8000:8000'
+      - '9443:9443'
     volumes:
       - portainer_data:/data
       - /var/run/docker.sock:/var/run/docker.sock
+    command:
+      - '--admin-password-file=/run/secrets/portainer-password'
+    profiles:
+      - only-portainer
+      - all
     secrets:
       - portainer-password
-    restart: unless-stopped
-    profiles: ["only-portainer", "all"]

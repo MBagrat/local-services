@@ -2,13 +2,17 @@ name: keycloak
 services:
   keycloak:
     image: quay.io/keycloak/keycloak:${KC_VERSION}
-    command: [ "start-dev", "--import-realm" ]
     restart: unless-stopped
+    ports:
+      - ${KC_PORT}:8080
+      - ${KC_MANAGEMENT_PORT}:9000
+    volumes:
+      - ./config/realm.json:/opt/keycloak/data/import/realm.json:ro
     environment:
       KC_DB: postgres
       KC_DB_USERNAME: keycloak
       KC_DB_PASSWORD: pa$$w0rd
-      KC_DB_URL: "jdbc:postgresql://postgres:5432/keycloak"
+      KC_DB_URL: jdbc:postgresql://postgres:5432/keycloak
       KC_METRICS_ENABLED: true
       KC_FEATURES: ${KC_FEATURES}
       KC_LOG_LEVEL: ${KC_LOG_LEVEL}
@@ -19,8 +23,9 @@ services:
       GF_URL: ${GF_HOSTNAME}:${GF_SERVER_HTTP_PORT}
       GF_ADMIN_USERNAME: ${GF_ADMIN_USERNAME}
       GF_ADMIN_PASSWORD: ${GF_ADMIN_PASSWORD}
-    ports:
-      - ${KC_PORT}:8080
-      - ${KC_MANAGEMENT_PORT}:9000
-    volumes:
-      - ./config/realm.json:/opt/keycloak/data/import/realm.json:ro
+    command:
+      - start-dev
+      - '--import-realm'
+    profiles:
+      - only-keycloak
+      - all

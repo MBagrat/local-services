@@ -54,6 +54,12 @@ services:
     extends:
       service: rabbitmq
       file: ./rabbitmq/compose.yml
+
+  redis:
+    extends:
+      service: redis
+      file: ./redis/compose.yml
+
   # INFO: Remember to integrate with keycloak
   portainer:
     extends:
@@ -66,6 +72,7 @@ volumes:
   pgadmin_data:
   pgadmin_cert_data:
   mysql_data:
+  redis_data:
   mariadb_data:
   rabbitmq_data:
 
